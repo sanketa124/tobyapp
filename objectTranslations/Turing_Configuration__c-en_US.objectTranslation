@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Turing Configuration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Turing Configurations</value>
+    </caseValues>
+    <fields>
+        <label><!-- Parent Configuration --></label>
+        <name>Parent_Configuration__c</name>
+        <relationshipLabel><!-- Turing Configurations --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Turing Configuration Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Deterministic Turing Machine --></label>
+        <name>Deterministic_Turing_Machine</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Non-Deterministic Turing Machine --></label>
+        <name>Non_Deterministic_Turing_Machine</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

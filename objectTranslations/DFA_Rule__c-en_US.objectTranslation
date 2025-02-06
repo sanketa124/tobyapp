@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>DFA Rule</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>DFA Rules</value>
+    </caseValues>
+    <fields>
+        <label><!-- Alert Owner Email --></label>
+        <name>Alert_Owner_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Alert Owner Name --></label>
+        <name>Alert_Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Alert Owner --></label>
+        <name>Alert_Owner__c</name>
+        <relationshipLabel><!-- DFA Rules --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Associated DFA --></label>
+        <name>Associated_DFA__c</name>
+        <relationshipLabel><!-- DFA Rules --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Regex Expression --></label>
+        <name>Regex_Expression__c</name>
+    </fields>
+    <layouts>
+        <layout>DFA Rule Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

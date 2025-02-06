@@ -1,0 +1,8 @@
+Hello {!DFA_Rule__c.Alert_Owner_Name__c},
+
+This is to inform you that a match for {!DFA_Rule__c.Description__c} in {!DFA_Rule__c.Name} has been found.
+
+Please look into it.
+
+Thank You,
+Admin

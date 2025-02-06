@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Finite State Machine Configuration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Finite State Machine Configurations</value>
+    </caseValues>
+    <fields>
+        <label><!-- Parent Configuration --></label>
+        <name>Parent_Configuration__c</name>
+        <relationshipLabel><!-- Finite State Machine Configurations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Pushdown Automata Configuration --></label>
+        <name>Pushdown_Automata_Configuration__c</name>
+        <relationshipLabel><!-- Finite State Machine Configurations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Turing Configuration --></label>
+        <name>Turing_Configuration__c</name>
+        <relationshipLabel><!-- Finite State Machine Configurations --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Finite State Machine Configuration Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Deterministic Finite State Machine --></label>
+        <name>Deterministic_Finite_State_Machine</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Non-Deterministic Finite State Machine --></label>
+        <name>Non_Deterministic_Finite_State_Machine</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

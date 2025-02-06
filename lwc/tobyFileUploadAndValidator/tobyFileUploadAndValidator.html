@@ -1,0 +1,72 @@
+<template>
+    <lightning-card title="Text Grammar Validator" icon-name="action:approval">
+        <div style="max-width:30%;" class="slds-m-around_medium">
+            <lightning-file-upload
+                label="Upload a Text File"
+                accept=".html, .json"
+                multiple="false"
+                onuploadfinished={handleFileUpload}>
+            </lightning-file-upload>
+        </div><hr style="margin:0px!important;"/>
+                    <lightning-layout if:true={compliantRulesExists} multiple-rows="true">
+                <lightning-layout-item padding="around-small" size="12">
+                    <lightning-layout>
+                        <lightning-layout-item padding="around-small" size="3">
+                            <div class="page-section page-right">
+                                <template if:true={fileContent}>
+                                    <div class="slds-m-around_medium">
+                                        <strong><h3>File Content Preview</h3></strong><br/>
+                                        <div class="file-preview">
+                                            <div style="white-space: pre-line">
+                                                {fileContent}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="page-section page-main">
+                                <template if:true={compliantRulesExists}>
+                                    <div class="slds-m-around_medium">
+                                        <strong><h3>Compliant Grammar Rules:</h3></strong><br/>
+                                        <ul>
+                                            <template for:each={compliantRules} for:item="rule">
+                                                <strong key={rule.Id}>{rule.Name}:</strong> <lightning-formatted-rich-text key={rule.Id} value={rule.Description__c}></lightning-formatted-rich-text>
+                                                <em key={rule.Id}>Matched {rule.matchCount} time(s).</em>         
+                                                <br key={rule.Id}/><br key={rule.Id}/>           
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="3">
+                            <div class="page-section page-right">
+                                <lightning-select
+                                    name="regex"
+                                    label="Rule to replace"
+                                    value={value}
+                                    options={options}
+                                    onchange={handleChange}
+                                ></lightning-select>
+                                <lightning-input
+                                    type="text"
+                                    label="Replacement Text"
+                                    placeholder="Enter replacement text"
+                                    onchange={handleReplacementChange}
+                                ></lightning-input>
+                                <div class="slds-grid slds-grid_align-center slds-p-top_small">
+                                    <div class="slds-col">
+                                        <lightning-button variant="brand-outline" label="Replace Text" 
+                                        title="Replace Text" onclick={handleClick} 
+                                        ></lightning-button>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-layout-item>
+            </lightning-layout>
+    </lightning-card>
+</template>
