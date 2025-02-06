@@ -1,0 +1,36 @@
+{
+  "task": "text",
+  "probabilities": [
+    {
+      "probability": 0.99937266,
+      "label": "ROUTE",
+      "boundingBox": {
+        "minX": 582,
+        "minY": 685,
+        "maxX": 1151,
+        "maxY": 815
+      }
+    },
+    {
+      "probability": 0.99471515,
+      "label": "EMERGENCY",
+      "boundingBox": {
+        "minX": 361,
+        "minY": 208,
+        "maxX": 1383,
+        "maxY": 346
+      }
+    },
+    {
+      "probability": 0.99469215,
+      "label": "EVACUATION",
+      "boundingBox": {
+        "minX": 331,
+        "minY": 438,
+        "maxX": 1401,
+        "maxY": 570
+      }
+    }
+  ],
+  "object": "predictresponse"
+}
