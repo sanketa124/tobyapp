@@ -83,8 +83,7 @@ For navigating to the app- [App Docs](https://github.com/sanketa124/tobyapp/blob
 
 Tor metadata explanation in the repo- [Metadata Docs](https://github.com/sanketa124/tobyapp/blob/master/docs/salesforce_metadata_readme)
 
-For sample data needed for testing- [Sample Data] (https://github.com/sanketa124/tobyapp/tree/master/data)
-
+For sample data needed for testing- [Sample Data](https://github.com/sanketa124/tobyapp/tree/master/data)
 
 For more details, refer to the [Salesforce CLI Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/).
 
