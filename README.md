@@ -77,7 +77,7 @@ sfdx force:org:delete -u MyDevOrg -p
 
 You have now successfully set up a new Salesforce Developer Org and imported metadata into it! 🎉
 
-## Further Read
+## Further Reads
 
 For navigating to the app [App Docs](https://github.com/sanketa124/tobyapp/blob/master/docs/salesforce_app_readme.md)
 
