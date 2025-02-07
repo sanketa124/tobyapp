@@ -75,4 +75,3 @@ If you need to automate the login and redirection, you can:
 - [Salesforce Lightning App Documentation](https://developer.salesforce.com/docs/component-library/overview/components)
 
 ---
-This README provides a step-by-step guide for logging into Salesforce and opening a specific Lightning App programmatically.
