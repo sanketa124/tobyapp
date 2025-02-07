@@ -79,9 +79,9 @@ You have now successfully set up a new Salesforce Developer Org and imported met
 
 ## Further Read
 
-For navigating to the app [App Docs](https://github.com/sanketa124/tobyapp/blob/master/docs/salesforce_app_readme)
+For navigating to the app [App Docs](https://github.com/sanketa124/tobyapp/blob/master/docs/salesforce_app_readme.md)
 
-Tor metadata explanation in the repo [Metadata Docs](https://github.com/sanketa124/tobyapp/blob/master/docs/salesforce_metadata_readme)
+Tor metadata explanation in the repo [Metadata Docs](https://github.com/sanketa124/tobyapp/blob/master/docs/salesforce_metadata_readme.md)
 
 For sample data needed for testing [Sample Data](https://github.com/sanketa124/tobyapp/tree/master/data)
 
