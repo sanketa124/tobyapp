@@ -1,6 +1,6 @@
 # Salesforce Metadata Types
 
-This repository provides an overview of various **Salesforce Metadata Types** used for configuration, automation, and customization in Salesforce development.
+This page provides an overview of various **Salesforce Metadata Types** used for configuration, automation, and customization in Salesforce development.
 
 ## **Introduction**
 Salesforce metadata types define the different kinds of metadata components that can be deployed, retrieved, or modified using tools like **Metadata API**, **SFDX**, and **Change Sets**. This README provides an overview of key metadata types and their use cases.
@@ -85,8 +85,3 @@ These metadata types represent various Salesforce configurations, customizations
 For more information, refer to the **[Salesforce Metadata API Documentation](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm)**.
 
 ---
-
-## **License**
-This repository is licensed under the MIT License.
-
-
