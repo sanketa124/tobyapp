@@ -1,9 +1,9 @@
 import torch
 from torchvision import datasets, transforms
-from model_vndgcnn import VNDGCNN, preprocess_images, knn  # import your model & helpers
+from model_vndgcnn import VNDGCNN, preprocess_images, knn
 import matplotlib.pyplot as plt
 
-# Load MNIST for test digit
+# Load MNIST dataset
 transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.RandomRotation(30)
@@ -17,28 +17,37 @@ model.load_state_dict(torch.load("model.pth", map_location=device))
 model.to(device)
 model.eval()
 
-# Visualization Function
-def visualize_knn_graph(image_tensor, k=20):
+# --- Visualization ---
+def visualize_knn_graph(image_tensor, label, k=20):
     with torch.no_grad():
-        image_tensor = preprocess_images(image_tensor.unsqueeze(0).to(device))  # [1, 3, 784]
-        x = image_tensor
+        preprocessed = preprocess_images(image_tensor.unsqueeze(0).to(device))  # [1, 3, 784]
+        x = preprocessed
         B, C, N = x.shape
         x_coords = x[0, 1].cpu().numpy()
         y_coords = x[0, 2].cpu().numpy()
         idx = knn(x, k=k)[0]
 
-        plt.figure(figsize=(6, 6))
-        for i in range(0, N, 30):
+        fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+        # Plot original image
+        axes[0].imshow(image_tensor.squeeze().cpu(), cmap='gray')
+        axes[0].set_title(f"Original Image (Label: {label})")
+        axes[0].axis("off")
+
+        # Plot k-NN graph
+        for i in range(0, N, 30):  # plot fewer points to reduce clutter
             xi, yi = x_coords[i], y_coords[i]
-            plt.scatter(xi, yi, color='red', s=10)
+            axes[1].scatter(xi, yi, color='red', s=10)
             for j in idx[i]:
                 xj, yj = x_coords[j], y_coords[j]
-                plt.plot([xi, xj], [yi, yj], 'gray', linewidth=0.5)
-        plt.gca().invert_yaxis()
-        plt.title(f"k-NN Graph (k={k})")
+                axes[1].plot([xi, xj], [yi, yj], 'gray', linewidth=0.5)
+        axes[1].invert_yaxis()
+        axes[1].set_title(f"k-NN Graph (k={k})")
+
+        plt.tight_layout()
         plt.show()
 
-# Run on a sample digit
+# Pick a sample digit from test set
 sample_img, label = test_dataset[0]
 print(f"True Label: {label}")
-visualize_knn_graph(sample_img)
+visualize_knn_graph(sample_img, label)
