@@ -79,7 +79,7 @@ def preprocess_images(images):
     B, _, H, W = images.shape
     images = images.view(B, 1, -1)  # [B, 1, 784]
 
-    coords = torch.stack(torch.meshgrid(torch.linspace(0, 1, H), torch.linspace(0, 1, W)), dim=0)  # [2, 28, 28]
+    coords = torch.stack(torch.meshgrid(torch.linspace(0, 1, H), torch.linspace(0, 1, W), indexing='ij'), dim=0)
     coords = coords.reshape(2, -1).unsqueeze(0).repeat(B, 1, 1).to(images.device)  # [B, 2, 784]
 
     out = torch.cat([images, coords], dim=1)  # [B, 3, 784]
