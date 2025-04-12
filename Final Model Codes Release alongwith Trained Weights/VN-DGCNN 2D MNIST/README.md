@@ -51,6 +51,3 @@ Conventional CNNs operate on structured grids, but this project explores applyin
 - Transformed into 784-point cloud with 3D features
 
 ---
-
-## 📁 File Structure
-
