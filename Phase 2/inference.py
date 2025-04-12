@@ -13,9 +13,17 @@ print(f"Model loaded on {device}")
 
 # --- Preprocessing for a digit region ---
 def preprocess_region(region):
-    region = cv2.resize(region, (28, 28))
-    region = region.astype(np.float32) / 255.0
-    tensor = torch.tensor(region).unsqueeze(0).unsqueeze(0)  # [1, 1, 28, 28]
+    # Resize with padding to retain aspect ratio
+    h, w = region.shape
+    size = max(h, w)
+    padded = np.zeros((size, size), dtype=np.uint8)
+    padded[(size - h) // 2:(size - h) // 2 + h, (size - w) // 2:(size - w) // 2 + w] = region
+
+    # Resize to 28x28
+    resized = cv2.resize(padded, (28, 28), interpolation=cv2.INTER_AREA)
+    normed = resized.astype(np.float32) / 255.0
+
+    tensor = torch.tensor(normed).unsqueeze(0).unsqueeze(0)  # [1, 1, 28, 28]
     tensor = preprocess_images(tensor)
     return tensor.to(device)
 
