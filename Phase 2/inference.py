@@ -44,7 +44,7 @@ def detect_digits(image_path, visualize=True):
         x, y, w, h = cv2.boundingRect(cnt)
         roi = thresh[y:y+h, x:x+w]
 
-        if w > 5 and h > 5:  # skip tiny noise
+        if w > 10 and h > 10 and w*h > 100:
             tensor = preprocess_region(roi)
             with torch.no_grad():
                 output = model(tensor)
