@@ -17,7 +17,6 @@ class ModelNet40Dataset(torch.utils.data.Dataset):
         with h5py.File(h5_file, "r") as f:
             self.data = f["data"][:]
             self.labels = f["label"][:].flatten()
-
         self.data = self.data[:, :num_points, :]
 
     def __len__(self):
@@ -50,7 +49,7 @@ def get_graph_feature(x, k=20):
     x = x.view(batch_size, num_points, 1, num_dims).repeat(1, 1, k, 1)
 
     edge_feature = torch.cat((neighbors - x, x), dim=3).permute(0, 3, 1, 2)
-    return edge_feature  # Shape: [B, 6, N, k]
+    return edge_feature
 
 # --- Vector Neuron Layer ---
 class VectorNeuronLayer(nn.Module):
@@ -96,13 +95,6 @@ class VNDGCNN3D(nn.Module):
         x = self.fc2(x)                     # (B, num_classes)
         return x
 
-# --- Load Datasets ---
-train_dataset = ModelNet40Dataset("modelnet40_train.h5", num_points=1024)
-test_dataset = ModelNet40Dataset("modelnet40_test.h5", num_points=1024)
-
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=4)
-test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=4)
-
 # --- Training Function ---
 def train(model, loader, epochs=10, lr=0.001):
     model.to(device)
@@ -120,7 +112,6 @@ def train(model, loader, epochs=10, lr=0.001):
             loss.backward()
             optimizer.step()
             total_loss += loss.item()
-
         print(f"Epoch [{epoch+1}/{epochs}] Loss: {total_loss / len(loader):.4f}")
 
 # --- Testing Function ---
@@ -140,11 +131,20 @@ def test(model, loader):
     print(f"Test Accuracy: {accuracy:.2f}%")
     return accuracy
 
-# --- Run Training ---
-model = VNDGCNN3D(num_classes=40)
-train(model, train_loader, epochs=10)
-test(model, test_loader)
+# --- Main Entry Point (IMPORTANT on Windows) ---
+if __name__ == "__main__":
+    # Load Datasets
+    train_dataset = ModelNet40Dataset("modelnet40_train.h5", num_points=1024)
+    test_dataset = ModelNet40Dataset("modelnet40_test.h5", num_points=1024)
 
-# --- Save Model ---
-torch.save(model.state_dict(), "vndgcnn3d_model.pth")
-print("✅ Model saved to vndgcnn3d_model.pth")
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=4)
+    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=4)
+
+    # Train & Test Model
+    model = VNDGCNN3D(num_classes=40)
+    train(model, train_loader, epochs=10)
+    test(model, test_loader)
+
+    # Save Model
+    torch.save(model.state_dict(), "vndgcnn3d_model.pth")
+    print("✅ Model saved to vndgcnn3d_model.pth")
