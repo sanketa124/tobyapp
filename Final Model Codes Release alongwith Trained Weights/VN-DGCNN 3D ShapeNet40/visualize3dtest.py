@@ -133,7 +133,7 @@ def visualize(model, dataset, num_classes=10):
 # ----- Load Model and Dataset -----
 if __name__ == "__main__":
     model_path = "model.pth"
-    test_file = "shapenet40_test.h5"  # or shapenet40_test.h5
+    test_file = "shapenet40_test.h5"  
 
     model = VNDGCNN3D(num_classes=40)
     model.load_state_dict(torch.load(model_path, map_location=device))
