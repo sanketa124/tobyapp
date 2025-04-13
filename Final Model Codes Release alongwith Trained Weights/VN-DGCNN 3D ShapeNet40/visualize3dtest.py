@@ -14,8 +14,8 @@ import os
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
-# ----- ModelNet40 / ShapeNet40 Class Names -----
-modelnet40_classes = [
+# ----- ShapeNet40 Class Names -----
+shapenet40_classes = [
     'airplane', 'bathtub', 'bed', 'bench', 'bookshelf', 'bottle', 'bowl', 'car',
     'chair', 'cone', 'cup', 'curtain', 'desk', 'door', 'dresser', 'flower_pot',
     'glass_box', 'guitar', 'keyboard', 'lamp', 'laptop', 'mantel', 'monitor',
@@ -25,7 +25,7 @@ modelnet40_classes = [
 ]
 
 # ----- Dataset Loader -----
-class ModelNet40Dataset(torch.utils.data.Dataset):
+class ShapeNet40Dataset(torch.utils.data.Dataset):
     def __init__(self, h5_file, num_points=1024):
         with h5py.File(h5_file, "r") as f:
             self.data = f["data"][:]
@@ -124,7 +124,7 @@ def visualize(model, dataset, num_classes=10):
 
         ax = fig.add_subplot(num_classes, 1, i + 1, projection='3d')
         ax.scatter(points[:, 0], points[:, 1], points[:, 2], c='b', s=2)
-        ax.set_title(f"True: {modelnet40_classes[true_label]} | Predicted: {modelnet40_classes[pred_label]}")
+        ax.set_title(f"True: {shapenet40_classes[true_label]} | Predicted: {shapenet40_classes[pred_label]}")
         ax.axis("off")
 
     plt.tight_layout()
@@ -133,12 +133,12 @@ def visualize(model, dataset, num_classes=10):
 # ----- Load Model and Dataset -----
 if __name__ == "__main__":
     model_path = "model.pth"
-    test_file = "modelnet40_test.h5"  # or shapenet40_test.h5
+    test_file = "shapenet40_test.h5"  # or shapenet40_test.h5
 
     model = VNDGCNN3D(num_classes=40)
     model.load_state_dict(torch.load(model_path, map_location=device))
     model.to(device)
 
-    test_dataset = ModelNet40Dataset(test_file, num_points=1024)
+    test_dataset = ShapeNet40Dataset(test_file, num_points=1024)
 
     visualize(model, test_dataset, num_classes=10)
