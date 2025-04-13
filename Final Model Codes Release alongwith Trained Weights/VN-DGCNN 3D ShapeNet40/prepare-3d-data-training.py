@@ -31,4 +31,4 @@ def merge_h5_files(folder_path, output_file):
     print(f"✅ Merged {len(all_files)} files into: {output_file}")
 
 # Example usage
-merge_h5_files('test_data', 'modelnet40_test.h5') # Your folder which contains the split h5 files will be mapped here.
+merge_h5_files('test_data', 'shapenet40_test.h5') # Your folder which contains the split h5 files will be mapped here.
