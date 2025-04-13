@@ -1,6 +1,6 @@
-# 🧠 VN-DGCNN for 3D Point Cloud Classification on ModelNet40
+# 🧠 VN-DGCNN for 3D Point Cloud Classification on ShapeNet40
 
-This project implements a **Vector Neuron-based Dynamic Graph Convolutional Neural Network (VN-DGCNN)** for classifying 3D point cloud objects using the **ModelNet40** dataset.
+This project implements a **Vector Neuron-based Dynamic Graph Convolutional Neural Network (VN-DGCNN)** for classifying 3D point cloud objects using the **ShapeNet40** dataset.
 
 ---
 
@@ -36,9 +36,9 @@ This project implements a **Vector Neuron-based Dynamic Graph Convolutional Neur
 
 ---
 
-## 📊 Dataset: ModelNet40
+## 📊 Dataset: ShapeNet40
 
-ModelNet40 is a 3D object dataset containing **12,311 CAD models** from **40 categories**.
+ShapeNet40 is a 3D object dataset containing **12,311 CAD models** from **40 categories**.
 
 ### Format
 
@@ -49,8 +49,8 @@ ModelNet40 is a 3D object dataset containing **12,311 CAD models** from **40 cat
 
 ### Files Needed
 
-- `modelnet40_train.h5`
-- `modelnet40_test.h5`
+- `shapenet40_train.h5`
+- `shapenet40_test.h5`
 
 ---
 
@@ -61,5 +61,5 @@ ModelNet40 is a 3D object dataset containing **12,311 CAD models** from **40 cat
 Loads 3D point cloud data from HDF5 format.
 
 ```python
-train_dataset = ModelNet40Dataset("modelnet40_train.h5", num_points=1024)
-test_dataset = ModelNet40Dataset("modelnet40_test.h5", num_points=1024)
+train_dataset = ShapeNet40Dataset("shapenet40_train.h5", num_points=1024)
+test_dataset = ShapeNet40Dataset("shapenet40_test.h5", num_points=1024)
