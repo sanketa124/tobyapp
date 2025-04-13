@@ -2,6 +2,7 @@ import os
 import cv2
 import torch
 from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
 import numpy as np
 from model import VNDGCNN, preprocess_images  # Reuse your model + helper
 
@@ -18,6 +19,7 @@ transform = transforms.Compose([
     transforms.RandomRotation(30)
 ])
 test_dataset = datasets.MNIST(root="./data", train=False, transform=transform, download=True)
+test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
 # --- Preprocessing for a digit region ---
 # --- Preprocessing for a digit region ---
@@ -70,6 +72,25 @@ def detect_digits(image_path, visualize=True):
 
     return results
 
+# --- Testing ---
+def test(model, test_loader):
+    model.eval()
+    correct = 0
+    total = 0
+
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images = preprocess_images(images).to(device).to(torch.float32)
+            labels = labels.to(device)
+
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    print(f"Test Accuracy: {100 * correct / total:.2f}%")
+
+
 # --- Loop over all images in a folder ---
 def test_on_folder(folder_path):
     supported_exts = (".jpg", ".jpeg", ".png", ".bmp")
@@ -86,4 +107,5 @@ def test_on_folder(folder_path):
 
 # --- Run ---
 if __name__ == "__main__":
+    test(model, test_loader)
     test_on_folder("image_data")  # Your folder path
