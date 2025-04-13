@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import h5py
 import numpy as np
+from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import random
@@ -130,6 +131,23 @@ def visualize(model, dataset, num_classes=10):
     plt.tight_layout()
     plt.show()
 
+# --- Testing Function ---
+def test(model, loader):
+    model.eval()
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for points, labels in loader:
+            points, labels = points.to(device), labels.to(device)
+            outputs = model(points)
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    accuracy = 100 * correct / total
+    print(f"Test Accuracy: {accuracy:.2f}%")
+    return accuracy
+
 # ----- Load Model and Dataset -----
 if __name__ == "__main__":
     model_path = "model.pth"
@@ -140,5 +158,8 @@ if __name__ == "__main__":
     model.to(device)
 
     test_dataset = ShapeNet40Dataset(test_file, num_points=1024)
+    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=4)
 
+    test(model, test_loader)
     visualize(model, test_dataset, num_classes=10)
+
