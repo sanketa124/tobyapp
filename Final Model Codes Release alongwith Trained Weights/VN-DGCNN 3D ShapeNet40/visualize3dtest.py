@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import random
 import os
+import argparse
+import json
 
 # ----- Device Setup -----
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -104,14 +106,12 @@ class VNDGCNN3D(nn.Module):
 def visualize(model, dataset, num_classes=10):
     model.eval()
 
-    # Map: class_id -> list of indices in dataset
     class_to_indices = {}
     for idx in range(len(dataset)):
         _, label = dataset[idx]
         class_to_indices.setdefault(label, []).append(idx)
 
     chosen_classes = random.sample(list(class_to_indices.keys()), num_classes)
-
     fig = plt.figure(figsize=(15, num_classes * 3))
 
     for i, class_id in enumerate(chosen_classes):
@@ -148,8 +148,43 @@ def test(model, loader):
     print(f"Test Accuracy: {accuracy:.2f}%")
     return accuracy
 
+# ----- Helper to get prediction JSON -----
+def get_prediction_json(model, dataset, index):
+    model.eval()
+    points, true_label = dataset[index]
+    input_tensor = points.unsqueeze(0).to(device)
+    with torch.no_grad():
+        output = model(input_tensor)
+        pred_label = torch.argmax(output, dim=1).item()
+
+    result = {
+        "index": index,
+        "true_label": shapenet40_classes[true_label],
+        "predicted_label": shapenet40_classes[pred_label]
+    }
+    return json.dumps(result, indent=4)
+
+# ----- Helper to save point cloud as JPG -----
+def save_pointcloud_visualization(dataset, index, output_dir="output"):
+    os.makedirs(output_dir, exist_ok=True)
+    points, label = dataset[index]
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(points[:, 0], points[:, 1], points[:, 2], c='blue', s=2)
+    ax.set_title(f"Point Cloud for Index {index} ({shapenet40_classes[label]})")
+    ax.axis("off")
+    plt.tight_layout()
+    filename = f"pointcloud_{index}_{shapenet40_classes[label]}.jpg"
+    plt.savefig(os.path.join(output_dir, filename))
+    plt.close()
+
 # ----- Load Model and Dataset -----
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="VN-DGCNN ShapeNet40 Inference")
+    parser.add_argument("--index", type=int, help="Sample index for prediction/visualization")
+    parser.add_argument("--visualize", action="store_true", help="Save point cloud visualization as JPG")
+    args = parser.parse_args()
+
     model_path = "model.pth"
     test_file = "shapenet40_test.h5"  
 
@@ -158,8 +193,13 @@ if __name__ == "__main__":
     model.to(device)
 
     test_dataset = ShapeNet40Dataset(test_file, num_points=1024)
-    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=4)
 
-    test(model, test_loader)
-    visualize(model, test_dataset, num_classes=10)
-
+    if args.index is not None:
+        print(get_prediction_json(model, test_dataset, args.index))
+        if args.visualize:
+            save_pointcloud_visualization(test_dataset, args.index)
+            print("Saved point cloud visualization in 'output/' folder")
+    else:
+        test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=4)
+        test(model, test_loader)
+        visualize(model, test_dataset, num_classes=10)
