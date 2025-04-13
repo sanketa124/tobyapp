@@ -174,7 +174,7 @@ def save_pointcloud_visualization(dataset, index, output_dir="output"):
     ax.set_title(f"Point Cloud for Index {index} ({shapenet40_classes[label]})")
     ax.axis("off")
     plt.tight_layout()
-    filename = f"pointcloud_{index}_{shapenet40_classes[label]}.jpg"
+    filename = f"pointcloud_{shapenet40_classes[label]}_{index}.jpg"
     plt.savefig(os.path.join(output_dir, filename))
     plt.close()
 
