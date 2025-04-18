@@ -20,3 +20,4 @@ python -m colbert.evaluate \
     --collection ./data/corpus.txt \
     --qrels ./data/qrels.tsv
 
+https://anaconda.cloud/api/iam/email/verified/abee2eda-cb75-460d-ae88-ccb25dd0c7d1
