@@ -1,0 +1,22 @@
+pip install -r requirements.txt
+
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+
+python -m colbert.train \
+    --triples query_triplets.tsv \
+    --queries ./data/queries.tsv \
+    --collection ./data/corpus.txt \
+    --checkpoint colbertv2 \
+    --bsize 32 \
+    --accum 1 \
+    --maxsteps 20000 \
+    --root ./experiments \
+    --experiment colbertv2_finetuned
+
+python -m colbert.evaluate \
+    --checkpoint ./experiments/colbertv2_finetuned \
+    --queries ./data/queries.tsv \
+    --collection ./data/corpus.txt \
+    --qrels ./data/qrels.tsv
+
