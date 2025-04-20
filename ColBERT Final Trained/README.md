@@ -127,7 +127,7 @@ Top-k Results:
 
 Feel free to reach out or contribute if you’re working on neural retrieval, semantic search, or intelligent question answering!
 
-> Built by [Your Name](https://www.linkedin.com/in/your-profile/)  
+> Built by [Sanket Anand](https://www.linkedin.com/in/sanket-anand-a35606304/)  
 > #ColBERT #NeuralSearch #NLP #Flask #SemanticSearch #DenseRetrieval
 
 ---
