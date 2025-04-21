@@ -1,6 +1,0 @@
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-
-https://drive.google.com/drive/folders/1H28cFrSDq0PnGLneTPHsA8PXZH9-Phvq?usp=sharing
-
-dir C:\Users\YourName\ -Recurse -Filter python.exe | where { $_.FullName -like "*\\Scripts\\python.exe" }
-
